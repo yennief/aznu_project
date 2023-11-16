@@ -1,0 +1,7 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.project.sourcePaths": [
+        "plants-order",
+        "store-ui/src/main/java/com/example/storeui"
+    ]
+}

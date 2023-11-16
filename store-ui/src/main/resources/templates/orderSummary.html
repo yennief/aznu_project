@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Order Summary</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1>Order summary:</h1>
+  <p th:text="'Order Id: ' + ${orderSummaryResponse.id}" />
+
+  <h2>Plants</h2>
+  <div>
+    <p th:text="'Id: ' + ${orderSummaryResponse.plantsOrderSummary.id}" />
+    <p th:text="'Cost: ' + ${orderSummaryResponse.plantsOrderSummary.cost}" />
+  </div>
+
+  <a href="/">Menu</a>
+</body>
+</html>

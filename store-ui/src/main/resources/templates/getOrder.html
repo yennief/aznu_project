@@ -1,0 +1,25 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Find Order</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Get order summary</h1>
+<form action="#" th:action="@{/getOrder}" th:object="${getOrderRequest}" method="post">
+  <p>Order Id:
+    <input type="text" th:name="id" />
+  </p>
+  <p>
+    <input type="submit" value="Send" />
+    <input type="reset" value="Reset" />
+  </p>
+</form>
+
+<p>
+  <a href="/">Menu</a>
+  <a href="/orderPlants">Order plants</a>
+</p>
+</body>
+</html>
