@@ -1,4 +1,4 @@
-
+<!-- 
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
@@ -21,5 +21,86 @@
   <a href="/">Menu</a>
   <a href="/orderPlants">Order plants</a>
 </p>
+</body>
+</html> -->
+
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Find Order</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script>
+    function getOrderById(orderId) {
+      console.log(orderId)
+      const baseUrl = 'http://localhost:8085/api/orderPlants/order/';
+      const url = baseUrl + orderId;
+      var headers = {}
+
+      fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        headers: headers
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+
+          console.log('Order details:', data);
+          document.getElementById('orderId').innerText = 'Order Id: ' + data.id;
+          document.getElementById('plantId').innerText = 'Id: ' + data.plantsOrderSummary.id;
+          document.getElementById('plantName').innerText = 'Name: ' + data.plantsOrderSummary.name;
+          document.getElementById('plantAmount').innerText = 'Amount: ' + data.plantsOrderSummary.amount;
+          document.getElementById('plantCost').innerText = 'Cost: ' + data.plantsOrderSummary.cost;
+
+        })
+        .catch(error => {
+          console.error('There was a problem with the request:', error);
+
+          model.addAttribute("fault", ex.getMessage());
+            return "fault";
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('getOrderForm');
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const orderId = document.getElementById('orderId').value;
+        getOrderById(orderId); 
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Get order summary</h1>
+  <form id="getOrderForm">
+    <p>Order Id:
+      <input type="text" id="orderId" />
+    </p>
+    <p>
+      <input type="submit" value="Send" />
+      <input type="reset" value="Reset" />
+    </p>
+  </form>
+
+  <h1>Order:</h1>
+  <p id="orderId"></p>
+
+  <h2>Plants</h2>
+  <div>
+    <p id="plantId"></p>
+    <p id="plantName"></p>
+    <p id="plantAmount"></p>
+    <p id="plantCost"></p>
+  </div>
+
+  <p>
+    <a href="/">Menu</a>
+    <a href="/orderPlants">Order plants</a>
+  </p>
 </body>
 </html>

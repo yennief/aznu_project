@@ -11,9 +11,47 @@
   <h2>Plants</h2>
   <div>
     <p th:text="'Id: ' + ${orderSummaryResponse.plantsOrderSummary.id}" />
+    <p th:text="'Name: ' + ${orderSummaryResponse.plantsOrderSummary.name}" />
+    <p th:text="'Amount: ' + ${orderSummaryResponse.plantsOrderSummary.amount}" />
     <p th:text="'Cost: ' + ${orderSummaryResponse.plantsOrderSummary.cost}" />
   </div>
 
   <a href="/">Menu</a>
 </body>
 </html>
+
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Order Summary</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <h1>Order summary:</h1>
+  <p id="orderId"></p>
+
+  <h2>Plants</h2>
+  <div>
+    <p id="plantId"></p>
+    <p id="plantName"></p>
+    <p id="plantAmount"></p>
+    <p id="plantCost"></p>
+  </div>
+
+  <a href="/">Menu</a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const orderSummaryResponse = JSON.parse(localStorage.getItem('orderSummaryResponse'));
+
+      if (orderSummaryResponse) {
+        document.getElementById('orderId').innerText = 'Order Id: ' + orderSummaryResponse.id;
+        document.getElementById('plantId').innerText = 'Id: ' + orderSummaryResponse.plantsOrderSummary.id;
+        document.getElementById('plantName').innerText = 'Name: ' + orderSummaryResponse.plantsOrderSummary.name;
+        document.getElementById('plantAmount').innerText = 'Amount: ' + orderSummaryResponse.plantsOrderSummary.amount;
+        document.getElementById('plantCost').innerText = 'Cost: ' + orderSummaryResponse.plantsOrderSummary.cost;
+      }
+    });
+  </script>
+</body>
+</html> -->

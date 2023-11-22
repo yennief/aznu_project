@@ -16,7 +16,7 @@ public class OrderSummaryResponse {
         return plantsOrderSummary;
     }
 
-    public void setPlantsOrderSummary(PlantsOrderSummary chairsOrderSummary) {
+    public void setPlantsOrderSummary(PlantsOrderSummary plantsOrderSummary) {
         this.plantsOrderSummary = plantsOrderSummary;
     }
 

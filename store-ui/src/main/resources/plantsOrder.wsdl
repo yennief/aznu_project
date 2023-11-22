@@ -1,0 +1,150 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://plantsOrder.bp.org/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PlantsOrderServiceService" targetNamespace="http://plantsOrder.bp.org/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://plantsOrder.bp.org/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://plantsOrder.bp.org/">
+            <xs:element name="cancelPlantsOrder" type="tns:cancelPlantsOrder"/>
+            <xs:element name="cancelPlantsOrderResponse" type="tns:cancelPlantsOrderResponse"/>
+            <xs:element name="getPlantsOrderSummary" type="tns:getPlantsOrderSummary"/>
+            <xs:element name="getPlantsOrderSummaryResponse" type="tns:getPlantsOrderSummaryResponse"/>
+            <xs:element name="orderPlants" type="tns:orderPlants"/>
+            <xs:element name="orderPlantsResponse" type="tns:orderPlantsResponse"/>
+            <xs:complexType name="getPlantsOrderSummary">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getPlantsOrderSummaryResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:plantsOrderSummary"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="plantsOrderSummary">
+                <xs:complexContent>
+                    <xs:extension base="tns:plantsOrder">
+                        <xs:sequence>
+                            <xs:element name="cost" type="xs:int"/>
+                            <xs:element minOccurs="0" name="id" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="plantsOrder">
+                <xs:sequence>
+                    <xs:element name="amount" type="xs:int"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="cancelPlantsOrder">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="cancelPlantsOrderResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="orderPlants">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:plantsOrder"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="orderPlantsResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:plantsOrderSummary"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="Fault" type="tns:Fault"/>
+            <xs:complexType name="Fault">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="text" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="orderPlantsResponse">
+        <wsdl:part element="tns:orderPlantsResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPlantsOrderSummaryResponse">
+        <wsdl:part element="tns:getPlantsOrderSummaryResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getPlantsOrderSummary">
+        <wsdl:part element="tns:getPlantsOrderSummary" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="Fault">
+        <wsdl:part element="tns:Fault" name="Fault"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelPlantsOrder">
+        <wsdl:part element="tns:cancelPlantsOrder" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="cancelPlantsOrderResponse">
+        <wsdl:part element="tns:cancelPlantsOrderResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="orderPlants">
+        <wsdl:part element="tns:orderPlants" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="PlantsOrderService">
+        <wsdl:operation name="getPlantsOrderSummary">
+            <wsdl:input message="tns:getPlantsOrderSummary" name="getPlantsOrderSummary"></wsdl:input>
+            <wsdl:output message="tns:getPlantsOrderSummaryResponse" name="getPlantsOrderSummaryResponse"></wsdl:output>
+            <wsdl:fault message="tns:Fault" name="Fault"></wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="cancelPlantsOrder">
+            <wsdl:input message="tns:cancelPlantsOrder" name="cancelPlantsOrder"></wsdl:input>
+            <wsdl:output message="tns:cancelPlantsOrderResponse" name="cancelPlantsOrderResponse"></wsdl:output>
+            <wsdl:fault message="tns:Fault" name="Fault"></wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="orderPlants">
+            <wsdl:input message="tns:orderPlants" name="orderPlants"></wsdl:input>
+            <wsdl:output message="tns:orderPlantsResponse" name="orderPlantsResponse"></wsdl:output>
+            <wsdl:fault message="tns:Fault" name="Fault"></wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PlantsOrderServiceServiceSoapBinding" type="tns:PlantsOrderService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getPlantsOrderSummary">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getPlantsOrderSummary">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getPlantsOrderSummaryResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="Fault">
+                <soap:fault name="Fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="cancelPlantsOrder">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="cancelPlantsOrder">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="cancelPlantsOrderResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="Fault">
+                <soap:fault name="Fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="orderPlants">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="orderPlants">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="orderPlantsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="Fault">
+                <soap:fault name="Fault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PlantsOrderServiceService">
+        <wsdl:port binding="tns:PlantsOrderServiceServiceSoapBinding" name="PlantsOrderServicePort">
+            <soap:address location="http://localhost:8081/soap-api/service/orderPlants"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

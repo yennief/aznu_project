@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!-- <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Fault</title>
@@ -8,5 +8,19 @@
 <h1>Error!</h1>
 <p th:text="${fault.message}" />
 <a href="/">Menu</a>
+</body>
+</html> -->
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head> 
+    <title>Fault</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Fault</h1>
+    <p th:text="'text: ' + ${fault}" />
+    <a href="/orderPlants">Try again</a>
 </body>
 </html>

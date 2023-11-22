@@ -34,13 +34,14 @@ public class StoreController {
     public String orderPlants(@ModelAttribute OrderRequest orderRequest, Model model) {
         try {
             ResponseEntity<OrderSummaryResponse> response = restTemplate.postForEntity(
-                    "http://localhost:8081/api/orderPlants/order",
+                    "http://localhost:8085/api/orderPlants/order",
                     orderRequest,
                     OrderSummaryResponse.class);
             model.addAttribute("orderSummaryResponse", response.getBody());
             return "orderSummary";
-        } catch (HttpStatusCodeException ex) {
-            model.addAttribute("fault", ex);
+        } catch (Exception ex) {
+            // System.err.print(ex.getMessage());
+            model.addAttribute("fault", ex.getMessage());
             return "fault";
         }
     }
@@ -51,17 +52,19 @@ public class StoreController {
         return "getOrder";
     }
 
-    @PostMapping("/getOrder")
-    public String findOrder(@ModelAttribute GetOrderRequest getOrderRequest, Model model) {
-        try {
-            ResponseEntity<OrderSummaryResponse> response = restTemplate.getForEntity(
-                    String.format("http://localhost:8081/api/orderPlants/order/%s", getOrderRequest.getId()),
-                    OrderSummaryResponse.class);
-            model.addAttribute("orderSummaryResponse", response.getBody());
-            return "orderSummary";
-        } catch (HttpStatusCodeException ex) {
-            model.addAttribute("fault", ex);
-            return "fault";
-        }
-    }
+    // @PostMapping("/getOrder")
+    // public String findOrder(@ModelAttribute GetOrderRequest getOrderRequest,
+    // Model model) {
+    // try {
+    // ResponseEntity<OrderSummaryResponse> response = restTemplate.getForEntity(
+    // String.format("http://localhost:8085/api/orderPlants/order/%s",
+    // getOrderRequest.getId()),
+    // OrderSummaryResponse.class);
+    // model.addAttribute("orderSummaryResponse", response.getBody());
+    // return "orderSummary";
+    // } catch (HttpStatusCodeException ex) {
+    // model.addAttribute("fault", ex);
+    // return "fault";
+    // }
+    // }
 }
