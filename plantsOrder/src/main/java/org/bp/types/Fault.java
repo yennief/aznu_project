@@ -1,21 +1,17 @@
-
 package org.bp.types;
 
+public class Fault extends Throwable {
 
+	protected String text;
 
-public class Fault  extends Exception {
-
-    protected int code;
-    protected String text;
-	public int getCode() {
-		return code;
+	public Fault(String text) {
+		this.text = text;
 	}
-	public void setCode(int code) {
-		this.code = code;
-	}
+
 	public String getText() {
 		return text;
 	}
+
 	public void setText(String text) {
 		this.text = text;
 	}

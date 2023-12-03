@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Payment Summary</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Payment was successfully finalized</h1>
+  <p th:text="'Transaction Id: ' + ${paymentResponse.transactionId}" />
+  <div>
+    <p th:text="'Date: ' + ${paymentResponse.transactionDate}" />
+  </div>
+
+  <a href="/">Menu</a>
+</body>
+</html>

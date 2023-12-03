@@ -16,6 +16,8 @@
     <p th:text="'Cost: ' + ${orderSummaryResponse.plantsOrderSummary.cost}" />
   </div>
 
+  <p><a th:href="@{/pay(id=${orderSummaryResponse.id})}">Pay</a></p>
+
   <a href="/">Menu</a>
 </body>
 </html>

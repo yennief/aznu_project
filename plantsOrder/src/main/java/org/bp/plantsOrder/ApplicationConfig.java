@@ -49,7 +49,7 @@ public class ApplicationConfig {
 	public Endpoint endpoint(Bus bus, PlantsOrderService searchService) {
 
 		EndpointImpl endpoint = new EndpointImpl(bus, searchService);
-		endpoint.publish("/service/plantsOrder");
+		endpoint.publish("/service/orderPlants");
 
 		return endpoint;
 	}

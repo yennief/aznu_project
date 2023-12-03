@@ -1,0 +1,107 @@
+openapi: 3.0.1
+info:
+  title: Plants mircro service
+  description: Micro service to order plants
+  contact:
+    email: supportm@bp.org
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:8090
+tags:
+- name: order
+  description: Plants which you can order
+paths:
+  /orderPlants:
+    post:
+      tags:
+      - orderPlants
+      summary: Ordering plants
+      operationId: plantsOrder
+      requestBody:
+        description: Details of plants you are ordering
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+        required: true
+      responses:
+        400:
+          description: Problem during processing of the order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+  /pay:
+    post:
+      tags:
+      - pay
+      summary: Payment
+      operationId: payment
+      requestBody:
+        description: Payment
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+        required: true
+      responses:
+        400:
+          description: Problem during processing of the order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+
+components:
+  schemas:
+    PlantsOrder:
+      type: object
+      properties:
+        amount:
+          type: int
+        name:
+          type: string
+    PaymentCard:
+      type: object
+      properties:
+        name:
+          type: string
+        validTo:
+          type: string
+        number:
+          type: string
+    OrderRequest:
+      type: object
+      properties:
+        PlantsOrder:
+          $ref: '#/components/schemas/PlantsOrder'
+        paymentCard:
+          $ref: '#/components/schemas/PaymentCard'
+    OrderSummaryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentCard:
+          $ref: '#/components/schemas/PlantsOrderSummary'
+    PlantsOrderSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        cost:
+          type: int
+        PlantsOrder:
+          $ref: '#/components/schemas/PlantsOrder'
+    ExceptionResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string

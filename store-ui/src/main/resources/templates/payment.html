@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Payment</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Pay</h1>
+<form action="#" th:action="@{/pay}" th:object="${paymentRequest}" method="post">
+
+  <h2>Card details</h2>
+  <p>Name: <input type="text" th:field="*{paymentCard.name}" /></p>
+  <p>Number: <input type="text" th:field="*{paymentCard.number}" /></p>
+  <p>Valid to: <input type="text" th:field="*{paymentCard.validTo}" /></p>
+
+
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+  <br/>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "PaymentClientApplication",
+            "request": "launch",
+            "mainClass": "com.example.paymentclient.PaymentClientApplication",
+            "projectName": "payment-client"
+        },
+        {
+            "type": "java",
+            "name": "PaymentApplication",
+            "request": "launch",
+            "mainClass": "com.example.payment.PaymentApplication",
+            "projectName": "payment"
+        },
+        {
+            "type": "java",
+            "name": "PaymentApplication",
+            "request": "launch",
+            "mainClass": "PaymentApplication",
+            "projectName": "aznu_project_298ea4ff"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "StoreUiApplication",
+            "request": "launch",
+            "mainClass": "StoreUiApplication",
+            "projectName": "aznu_project_298ea4ff"
+        },
+        {
+            "type": "java",
+            "name": "MicroPlantsOrderApplication",
+            "request": "launch",
+            "mainClass": "com.example.plants.MicroPlantsOrderApplication",
+            "projectName": "micro-plants-order"
+        },
+        {
+            "type": "java",
+            "name": "PlantsOrderApplication",
+            "request": "launch",
+            "mainClass": "org.bp.plantsOrder.PlantsOrderApplication",
+            "projectName": "plants-order"
+        },
+        {
+            "type": "java",
+            "name": "StoreUiApplication(1)",
+            "request": "launch",
+            "mainClass": "com.example.storeui.StoreUiApplication",
+            "projectName": "store-ui"
+        }
+    ]
+}
