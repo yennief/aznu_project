@@ -1,11 +1,6 @@
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:tns="http://plantsOrder.bp.org/"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PlantsOrderServiceService" targetNamespace="http://plantsOrder.bp.org/">
+<!-- <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://plantsOrder.bp.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PlantsOrderServiceService" targetNamespace="http://plantsOrder.bp.org/">
     <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://plantsOrder.bp.org/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://plantsOrder.bp.org/">
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://plantsOrder.bp.org/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://plantsOrder.bp.org/">
             <xs:element name="cancelPlantsOrder" type="tns:cancelPlantsOrder"/>
             <xs:element name="cancelPlantsOrderResponse" type="tns:cancelPlantsOrderResponse"/>
             <xs:element name="getPlantsOrderSummary" type="tns:getPlantsOrderSummary"/>
@@ -155,4 +150,4 @@
             <soap:address location="http://localhost:8081/soap-api/service/orderPlants"/>
         </wsdl:port>
     </wsdl:service>
-</wsdl:definitions>
+</wsdl:definitions> -->

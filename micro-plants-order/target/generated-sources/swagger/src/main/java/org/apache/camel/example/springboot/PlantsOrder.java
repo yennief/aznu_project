@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
- package org.apache.camel.example.springboot.model.models;
+package org.apache.camel.example.springboot;
 
 import java.util.Objects;
 import java.util.Arrays;
@@ -18,53 +18,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.apache.camel.example.springboot.PaymentCard;
 /**
- * PaymentRequest
+ * PlantsOrder
  */
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.JavaClientCodegen", date = "2023-12-06T13:20:37.806634+01:00[Europe/Warsaw]")
-public class PaymentRequest {
-  @JsonProperty("orderId")
-  private String orderId = null;
+public class PlantsOrder {
+  @JsonProperty("amount")
+  private Integer amount = null;
 
-  @JsonProperty("paymentCard")
-  private PaymentCard paymentCard = null;
+  @JsonProperty("name")
+  private String name = null;
 
-  public PaymentRequest orderId(String orderId) {
-    this.orderId = orderId;
+  public PlantsOrder amount(Integer amount) {
+    this.amount = amount;
     return this;
   }
 
    /**
-   * Get orderId
-   * @return orderId
+   * Get amount
+   * @return amount
   **/
   @Schema(description = "")
-  public String getOrderId() {
-    return orderId;
+  public Integer getAmount() {
+    return amount;
   }
 
-  public void setOrderId(String orderId) {
-    this.orderId = orderId;
+  public void setAmount(Integer amount) {
+    this.amount = amount;
   }
 
-  public PaymentRequest paymentCard(PaymentCard paymentCard) {
-    this.paymentCard = paymentCard;
+  public PlantsOrder name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Get paymentCard
-   * @return paymentCard
+   * Get name
+   * @return name
   **/
   @Schema(description = "")
-  public PaymentCard getPaymentCard() {
-    return paymentCard;
+  public String getName() {
+    return name;
   }
 
-  public void setPaymentCard(PaymentCard paymentCard) {
-    this.paymentCard = paymentCard;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -76,24 +75,24 @@ public class PaymentRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PaymentRequest paymentRequest = (PaymentRequest) o;
-    return Objects.equals(this.orderId, paymentRequest.orderId) &&
-        Objects.equals(this.paymentCard, paymentRequest.paymentCard);
+    PlantsOrder plantsOrder = (PlantsOrder) o;
+    return Objects.equals(this.amount, plantsOrder.amount) &&
+        Objects.equals(this.name, plantsOrder.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(orderId, paymentCard);
+    return Objects.hash(amount, name);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PaymentRequest {\n");
+    sb.append("class PlantsOrder {\n");
     
-    sb.append("    orderId: ").append(toIndentedString(orderId)).append("\n");
-    sb.append("    paymentCard: ").append(toIndentedString(paymentCard)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

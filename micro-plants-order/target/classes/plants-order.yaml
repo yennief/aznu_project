@@ -81,6 +81,13 @@ components:
           $ref: '#/components/schemas/PlantsOrder'
         paymentCard:
           $ref: '#/components/schemas/PaymentCard'
+    PaymentRequest:
+      type: object
+      properties:
+        orderId:
+          type: string
+        paymentCard:
+          $ref: '#/components/schemas/PaymentCard'
     OrderSummaryResponse:
       type: object
       properties:

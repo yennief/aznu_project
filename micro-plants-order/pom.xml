@@ -238,7 +238,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
                 <version>0.14.0</version>
@@ -258,7 +258,7 @@
                     </schemaIncludes>
                     <clearOutputDir>true</clearOutputDir>
                 </configuration>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -286,7 +286,7 @@
 								${project.basedir}/src/main/resources/plants-order.yaml</inputSpec>
                             <language>java</language>
                             <library>resttemplate</library>
-                            <modelPackage>org.apache.camel.example.springboot</modelPackage>
+                            <modelPackage>org.apache.camel.example.springboot.model.models</modelPackage>
                             <generateApis>false</generateApis>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <generateModelDocumentation>false</generateModelDocumentation>

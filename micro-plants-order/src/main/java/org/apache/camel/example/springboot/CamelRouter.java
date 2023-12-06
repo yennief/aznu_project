@@ -85,21 +85,16 @@ public class CamelRouter extends RouteBuilder {
                 .contextPath("/api")
                 .apiContextPath("/api-doc");
 
-        rest("/orderPlants").description("Order plants") // tu przyjmuje endpoint
+        rest("/orderPlants").description("Order plants")
                 .post("/order").description("Plants store").type(OrderRequest.class)
                 .consumes("application/json")
                 .produces("application/json")
-                // typ wchodzacy do post i typ wychodzacy z post
                 .outType(OrderSummaryResponse.class)
                 .param().name("body").type(body).description("Plants order param").endParam()
-                // .to("kafka:PlantsOrderTopic?brokers=justynas-macbook-pro.home:9092");
+                .responseMessage().code(200).message("Plants order ordered successfully").endResponseMessage()
+                .responseMessage().code(400).responseModel(GateException.class).message("Post order exception")
+                .endResponseMessage()
                 .to("direct:plantsOrder");
-
-        // .responseMessage().code(200).message("Plants order ordered
-        // successfully").endResponseMessage()
-        // .responseMessage().code(400).responseModel(GateException.class).message("Post
-        // order exception")
-        // .endResponseMessage()
 
 
         rest("/payment").description("Finalize payment") 
@@ -108,11 +103,9 @@ public class CamelRouter extends RouteBuilder {
                 .produces("application/json")
                 .outType(PaymentResponse.class)
                 .param().name("body").type(body).description("Payment param").endParam()
-                // .to("kafka:PaymentTopic?brokers=justynas-macbook-pro.home:9092");
                 .to("direct:payment");
 
         from("direct:payment")
-        // from("kafka:PaymentTopic?brokers=justynas-macbook-pro.home:9092")
         .routeId("payment")
                 .log("payment fired")
                 .process((exchange) -> {
@@ -149,11 +142,11 @@ public class CamelRouter extends RouteBuilder {
                         })
                         // .to("kafka:PaymentInfoTopic?brokers=justynas-macbook-pro.home:9092")
                 .to("direct:paymentInfo") //change to kafka
-               
                 .end()
                 .marshal().json()
                 .log("order created").to("stream:out")
                 .unmarshal().json(JsonLibrary.Jackson, PaymentResponse.class);
+
 
         from("direct:plantsOrder")
         // from("kafka:PlantsOrderTopic?brokers=justynas-macbook-pro.home:9092")
@@ -210,22 +203,19 @@ public class CamelRouter extends RouteBuilder {
 
                 
 
-        // --------------------------Get
-        // REST--------------------------------------------------------------------------//
-
+        //GET
+        //REST
 
         rest("/orderPlants").description("Get order summary")
                 .produces("application/json")
                 .get("/order/{orderId}")
                 .outType(OrderSummaryResponse.class)
                 .param().name("orderId").type(path).description("Order Id").endParam()
-                // .to("kafka:getOrderPlantsTopic?brokers=justynas-macbook-pro.home:9092");
+                .responseMessage().code(200).message("The plants order get successfully").endResponseMessage()
+                .responseMessage().code(400).responseModel(GateException.class).message("Get order exception")
+                .endResponseMessage()
                 .to("direct:getOrderPlants");
-        // .responseMessage().code(200).message("The plants order get
-        // successfully").endResponseMessage()
-        // .responseMessage().code(400).responseModel(GateException.class).message("Get
-        // order exception")
-        // .endResponseMessage()
+                // .to("kafka:getOrderPlantsTopic?brokers=justynas-macbook-pro.home:9092");
 
         from("direct:getOrderPlants")
         // from("kafka:getOrderPlantsTopic?brokers=justynas-macbook-pro.home:9092")
@@ -234,16 +224,16 @@ public class CamelRouter extends RouteBuilder {
                 .process(exchange -> {
 
                     String orderId = exchange.getMessage().getHeader("orderId", String.class);
-                    ProcessingState previousState = plantsStateService.sendEvent(orderId,
-                            ProcessingEvent.START);
-                    if (previousState != ProcessingState.CANCELLED) {
+                    // ProcessingState previousState = plantsStateService.sendEvent(orderId,
+                    //         ProcessingEvent.START);
+                    // if (previousState != ProcessingState.CANCELLED) {
                         OrderSummaryResponse orderSummaryResponse = new OrderSummaryResponse();
                         orderSummaryResponse.setId(orderId);
                         exchange.setProperty("orderSummaryResponse", orderSummaryResponse);
-                        previousState = plantsStateService.sendEvent(orderId, ProcessingEvent.FINISH);
+                        // previousState = plantsStateService.sendEvent(orderId, ProcessingEvent.FINISH);
 
-                    }
-                    exchange.getMessage().setHeader("previousState", previousState);
+                    // }
+                    // exchange.getMessage().setHeader("previousState", previousState);
                 })
                 .saga()
                 .multicast()
@@ -259,8 +249,7 @@ public class CamelRouter extends RouteBuilder {
 
                     OrderSummaryResponse orderSummary;
                     if (prevEx == null) {
-                        orderSummary = currentEx.getProperty("orderSummary",
-                                OrderSummaryResponse.class);
+                        orderSummary = currentEx.getProperty("orderSummaryResponse", OrderSummaryResponse.class);
                     }
 
                 else {
@@ -280,22 +269,11 @@ public class CamelRouter extends RouteBuilder {
 
                     return currentEx;
                 })
-                .marshal().json()
-                .to("stream:out")
-                .choice()
-                .when(header("previousState").isEqualTo(ProcessingState.CANCELLED))
-                .to("direct:orderPlantsCompensationAction")
-                // .to("kafka:orderPlantsCompensationActionTopic?brokers=justynas-macbook-pro.home:9092")
-                .otherwise()
-                // .to("kafka:getOrderTopic?brokers=justynas-macbook-pro.home:9092")
-                .to("direct:getOrder") // change to kafka
-                .endChoice();
+                .to("direct:getOrder")   //.to("kafka:getOrderTopic?brokers=justynas-macbook-pro.home:9092")
+                .end()
+                .marshal().json().log("got order")
+                .to("stream:out").unmarshal().json(JsonLibrary.Jackson, OrderSummaryResponse.class);
 
-        from("direct:orderPlantsCompensationAction")
-        // from("kafka:orderPlantsCompensationActionTopic?brokers=justynas-macbook-pro.home:9092")
-        .routeId("orderPlantsCompensationAction")
-                .log("fired orderPlantsCompensationAction")
-                .to("stream:out");
 
     }
 
@@ -304,8 +282,6 @@ public class CamelRouter extends RouteBuilder {
         final JaxbDataFormat jaxbOrderPlantsResponse = new JaxbDataFormat(
                 OrderPlantsResponse.class.getPackage().getName());
 
-        // --------------------------Post
-        // SOAP--------------------------------------------------------------------------//
         from("direct:plants")
         // from("kafka:PlantsTopic?brokers=justynas-macbook-pro.home:9092")
                 .routeId("plants").log("plants fired")
@@ -354,15 +330,15 @@ public class CamelRouter extends RouteBuilder {
                 .marshal(jaxbOrderPlantsResponse)
                 .to("spring-ws:" + plantsOrderUrl + "/cancelPlantsOrder");
 
-        // --------------------------Get
-        // SOAP--------------------------------------------------------------------------//
+        //GET
+        //SOAP
 
         from("direct:getOrder")
         // from("kafka:getOrderTopic?brokers=justynas-macbook-pro.home:9092")
                 .routeId("getOrder").log("getOrder fired")
                 .process(exchange -> {
                     String mainOrderId = exchange.getMessage().getHeader("orderId", String.class);
-                    System.out.println(exchange.getMessage());
+                    System.out.println(mainOrderId);
                     String plantsOrderId = ordersIdentifierService.getPlantsOrderId(mainOrderId);
 
                     GetPlantsOrderSummary getPlantsOrderSummary = new GetPlantsOrderSummary();
@@ -377,12 +353,14 @@ public class CamelRouter extends RouteBuilder {
 
     private void payment() {
 
+        //POST
+        //REST
+
         from("direct:paymentInfo")
         // from("kafka:PaymentInfoTopic?brokers=justynas-macbook-pro.home:9092")
                 .routeId("paymentInfo").log("paymentInfo fired")
                 .saga()
                 .propagation(SagaPropagation.MANDATORY)
-                // .compensation("direct:cancelPayment")
                 .option("paymentSummary", simple("${exchangeProperty.paymentResponse}"))
                 .process(exchange -> {
                     PaymentRequest paymentRequest = exchange.getMessage().getBody(PaymentRequest.class);

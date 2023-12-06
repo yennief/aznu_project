@@ -5,6 +5,7 @@ import org.apache.camel.example.springboot.model.models.PlantsOrderSummary;
 public class OrderSummaryResponse {
     private String id;
     private PlantsOrderSummary plantsOrderSummary;
+    
 
     public String getId() {
         return id;
